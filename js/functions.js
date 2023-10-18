@@ -1,20 +1,15 @@
 function checkPalindrome (isPalindrome) {
   isPalindrome = isPalindrome.toLowerCase().replaceAll(' ','');
   const reversePalindrome = isPalindrome.split('').reverse('').join('');
-  if (isPalindrome === reversePalindrome) {
-    return true;
-  }
-
-  return false;
+  return isPalindrome === reversePalindrome;
 }
 
-// Функциякоторая принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа.
+// Функция, которая принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа.
 // Если в строке нет ни одной цифры, функция должна вернуть NaN
 function getNumbers (someString) {
-  let onlyNumbers;
-  for (let i = 0; i <= someString.length; i++) {
-    onlyNumbers = '';
-    const separateSymbol = parseInt(someString.at(i));
+  let onlyNumbers = '';
+  for (let i = 0; i < someString.length; i++) {
+    const separateSymbol = parseInt(someString.at(i), 10);
 
     if (Number.isNaN(separateSymbol) === false) {
       onlyNumbers = onlyNumbers + separateSymbol;
@@ -27,16 +22,17 @@ function getNumbers (someString) {
 // Возвращает исходную строку, дополненную указанными символами до заданной длины
 
 function addSymbols (someString, minLength, addedString) {
-  addedString.toString();
-
+  addedString = addedString.toString();
+  let result = someString;
   if (someString.length < minLength) {
-    for (let i = 0; someString.length <= minLength; i++) {
-      if (i > addedString.length) {
-        i = i - 1;
+    for (let i = 0; result.length < minLength; i++) {
+      if (i === addedString.length) {
+        i = i - addedString.length;
       }
-      return addedString.at(i) + someString;
+      result = result + addedString.at(i);
     }
   }
+  return result;
 }
 
 function compareLength (someString, lengthNeeded) {
