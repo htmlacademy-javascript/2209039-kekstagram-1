@@ -11,6 +11,16 @@ function checkPalindrome (isPalindrome) {
 // Функциякоторая принимает строку, извлекает содержащиеся в ней цифры от 0 до 9 и возвращает их в виде целого положительного числа.
 // Если в строке нет ни одной цифры, функция должна вернуть NaN
 function getNumbers (someString) {
+  let onlyNumbers;
+  for (let i = 0; i <= someString.length; i++) {
+    onlyNumbers = '';
+    const separateSymbol = parseInt(someString.at(i));
+
+    if (Number.isNaN(separateSymbol) === false) {
+      onlyNumbers = onlyNumbers + separateSymbol;
+    }
+  }
+  return onlyNumbers;
 }
 
 // Функция, которая принимает три параметра: исходную строку, минимальную длину и строку с добавочными символами
