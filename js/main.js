@@ -1,3 +1,1 @@
-import { getPostsArray } from './data';
-
-getPostsArray();
+import './thumbnails.js';

@@ -1,4 +1,4 @@
-import {getRandomInteger, getId} from './util';
+import {getRandomInteger, getId} from './util.js';
 
 const getPostId = getId();
 const getCommentId = getId();
