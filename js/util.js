@@ -15,4 +15,7 @@ const getId = () => {
   return countIncreaser;
 };
 
-export { getRandomInteger, getId };
+const isEscapeKey = (evt) => evt.key === 'Escape';
+const isEnterKey = (evt) => evt.key === 'Enter';
+
+export { getRandomInteger, getId, isEscapeKey, isEnterKey };
