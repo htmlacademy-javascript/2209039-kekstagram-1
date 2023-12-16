@@ -5,6 +5,8 @@ const renderModal = (thumbnailPictures, data) => {
   const closeModalButton = bigPicture.querySelector('.big-picture__cancel');
   const commentTemplate = document.querySelector('#comment').content;
   const commentsList = document.querySelector('.social__comments');
+  const commentsHTML = document.querySelectorAll('.social__comment');
+  let commnetsShown = 5;
 
   const onModalKeydown = (evt) => {
     if (isEscapeKey(evt)) {
@@ -31,7 +33,6 @@ const renderModal = (thumbnailPictures, data) => {
     bigPicture.querySelector('.likes-count').textContent = postData.likes;
     bigPicture.querySelector('.social__caption').textContent = postData.description;
 
-    const commentsHTML = document.querySelectorAll('.social__comment');
     commentsHTML.forEach((commentHTML) => commentHTML.parentNode.removeChild(commentHTML));
 
     postData.comments.forEach((commentData) => {
@@ -42,11 +43,8 @@ const renderModal = (thumbnailPictures, data) => {
       commentsSection.querySelector('.social__text').textContent = message;
       commentsList.appendChild(commentsSection);
     });
-
-
-    bigPicture.querySelector('.social__comment-count').classList.add('hidden');
-    bigPicture.querySelector('.comments-loader').classList.add('hidden');
-  };
+  }
+};
 
   for (let i = 0; i < thumbnailPictures.length; i++) {
     const currentPicture = thumbnailPictures[i];
