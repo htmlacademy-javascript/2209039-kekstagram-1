@@ -5,6 +5,7 @@ const renderModal = (thumbnailPictures, data) => {
   const closeModalButton = bigPicture.querySelector('.big-picture__cancel');
   const commentTemplate = document.querySelector('#comment').content;
   const commentsList = document.querySelector('.social__comments');
+  let commentsShown = 0;
 
   const onModalKeydown = (evt) => {
     if (isEscapeKey(evt)) {
@@ -34,18 +35,50 @@ const renderModal = (thumbnailPictures, data) => {
     const commentsHTML = document.querySelectorAll('.social__comment');
     commentsHTML.forEach((commentHTML) => commentHTML.parentNode.removeChild(commentHTML));
 
-    postData.comments.forEach((commentData) => {
-      const { avatar, message, name } = commentData;
-      const commentsSection = commentTemplate.cloneNode(true);
-      commentsSection.querySelector('.social__picture').src = avatar;
-      commentsSection.querySelector('.social__picture').alt = name;
-      commentsSection.querySelector('.social__text').textContent = message;
-      commentsList.appendChild(commentsSection);
-    });
+    // postData.comments.forEach((commentData) => {
+    //   const { avatar, message, name } = commentData;
+    //   const commentsSection = commentTemplate.cloneNode(true);
+    //   commentsSection.querySelector('.social__picture').src = avatar;
+    //   commentsSection.querySelector('.social__picture').alt = name;
+    //   commentsSection.querySelector('.social__text').textContent = message;
+    //   commentsList.appendChild(commentsSection);
+    // });
+
+    const renderComments = () => {
+      for (let i = 0; i < commentsShown; i++) {
+        const currentComment = postData.comments[i];
+        const commentsSection = commentTemplate.cloneNode(true);
+        commentsSection.querySelector('.social__picture').src = currentComment.avatar;
+        commentsSection.querySelector('.social__picture').alt = currentComment.name;
+        commentsSection.querySelector('.social__text').textContent = currentComment.message;
+        commentsList.appendChild(commentsSection);
+
+        if (i === postData.comments.length) {
+          break;
+        }
+      }
+    };
+
+    const getCommentsSection = () => {
+      debugger;
+      const moreCommentsButton = bigPicture.querySelector('.comments-loader');
+      commentsShown += 5;
+      renderComments();
+
+      if (commentsShown >= postData.comments.length) {
+        moreCommentsButton.classList.add('hidden');
+        commentsShown = postData.comments.length;
+      } else {
+        moreCommentsButton.classList.remove('hidden');
+        moreCommentsButton.addEventListener('click', renderComments);
+      }
+    };
+
+    getCommentsSection();
 
 
-    bigPicture.querySelector('.social__comment-count').classList.add('hidden');
-    bigPicture.querySelector('.comments-loader').classList.add('hidden');
+    // bigPicture.querySelector('.social__comment-count').classList.add('hidden');
+    // bigPicture.querySelector('.comments-loader').classList.add('hidden');
   };
 
   for (let i = 0; i < thumbnailPictures.length; i++) {
