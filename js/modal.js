@@ -45,7 +45,8 @@ const renderModal = (thumbnailPictures, data) => {
     // });
 
     const renderComments = () => {
-      for (let i = 0; i < commentsShown; i++) {
+      debugger
+      for (let i = 0; i < 5; i++) {
         const currentComment = postData.comments[i];
         const commentsSection = commentTemplate.cloneNode(true);
         commentsSection.querySelector('.social__picture').src = currentComment.avatar;
@@ -60,9 +61,8 @@ const renderModal = (thumbnailPictures, data) => {
     };
 
     const getCommentsSection = () => {
-      debugger;
-      const moreCommentsButton = bigPicture.querySelector('.comments-loader');
       commentsShown += 5;
+      const moreCommentsButton = bigPicture.querySelector('.comments-loader');
       renderComments();
 
       if (commentsShown >= postData.comments.length) {
