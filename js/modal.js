@@ -35,50 +35,31 @@ const renderModal = (thumbnailPictures, data) => {
     const commentsHTML = document.querySelectorAll('.social__comment');
     commentsHTML.forEach((commentHTML) => commentHTML.parentNode.removeChild(commentHTML));
 
-    // postData.comments.forEach((commentData) => {
-    //   const { avatar, message, name } = commentData;
-    //   const commentsSection = commentTemplate.cloneNode(true);
-    //   commentsSection.querySelector('.social__picture').src = avatar;
-    //   commentsSection.querySelector('.social__picture').alt = name;
-    //   commentsSection.querySelector('.social__text').textContent = message;
-    //   commentsList.appendChild(commentsSection);
-    // });
-
     const renderComments = () => {
-      debugger
-      for (let i = 0; i < 5; i++) {
+      commentsShown += 5;
+      const moreCommentsButton = bigPicture.querySelector('.comments-loader');
+      const commentsCounter = document.querySelector('.social__comment-count');
+      commentsList.innerHTML = '';
+
+      for (let i = 0; i < commentsShown; i++) {
         const currentComment = postData.comments[i];
         const commentsSection = commentTemplate.cloneNode(true);
         commentsSection.querySelector('.social__picture').src = currentComment.avatar;
         commentsSection.querySelector('.social__picture').alt = currentComment.name;
         commentsSection.querySelector('.social__text').textContent = currentComment.message;
         commentsList.appendChild(commentsSection);
+        commentsCounter.textContent = `${commentsList.children.length} из ${postData.comments.length} комментариев`;
 
-        if (i === postData.comments.length) {
-          break;
+        if (commentsList.children.length === postData.comments.length) {
+          moreCommentsButton.classList.add('hidden');
+        } else {
+          moreCommentsButton.classList.remove('hidden');
+          moreCommentsButton.addEventListener('click', renderComments);
         }
       }
     };
 
-    const getCommentsSection = () => {
-      commentsShown += 5;
-      const moreCommentsButton = bigPicture.querySelector('.comments-loader');
-      renderComments();
-
-      if (commentsShown >= postData.comments.length) {
-        moreCommentsButton.classList.add('hidden');
-        commentsShown = postData.comments.length;
-      } else {
-        moreCommentsButton.classList.remove('hidden');
-        moreCommentsButton.addEventListener('click', renderComments);
-      }
-    };
-
-    getCommentsSection();
-
-
-    // bigPicture.querySelector('.social__comment-count').classList.add('hidden');
-    // bigPicture.querySelector('.comments-loader').classList.add('hidden');
+    renderComments();
   };
 
   for (let i = 0; i < thumbnailPictures.length; i++) {
