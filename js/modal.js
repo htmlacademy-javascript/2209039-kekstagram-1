@@ -11,6 +11,7 @@ const renderModal = (thumbnailPictures, data) => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
       bigPicture.classList.add('hidden');
+      commentsShown = 0;
     }
   };
 
@@ -24,11 +25,11 @@ const renderModal = (thumbnailPictures, data) => {
   const closeModalWindow = () => {
     bigPicture.classList.add('hidden');
     document.removeEventListener('keydown', onModalKeydown);
+    commentsShown = 0;
   };
 
   const renderModalContent = (postData) => {
     bigPicture.querySelector('img').src = postData.url;
-    bigPicture.querySelector('.comments-count').textContent = postData.comments.length;
     bigPicture.querySelector('.likes-count').textContent = postData.likes;
     bigPicture.querySelector('.social__caption').textContent = postData.description;
 
@@ -36,10 +37,14 @@ const renderModal = (thumbnailPictures, data) => {
     commentsHTML.forEach((commentHTML) => commentHTML.parentNode.removeChild(commentHTML));
 
     const renderComments = () => {
-      commentsShown += 5;
       const moreCommentsButton = bigPicture.querySelector('.comments-loader');
       const commentsCounter = document.querySelector('.social__comment-count');
       commentsList.innerHTML = '';
+      commentsShown += 5;
+
+      if (postData.comments.length < commentsShown) {
+        commentsShown = postData.comments.length;
+      }
 
       for (let i = 0; i < commentsShown; i++) {
         const currentComment = postData.comments[i];
