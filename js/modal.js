@@ -57,6 +57,7 @@ const renderModal = (thumbnailPictures, data) => {
 
         if (commentsList.children.length === postData.comments.length) {
           moreCommentsButton.classList.add('hidden');
+          moreCommentsButton.removeEventListener('click', renderComments);
         } else {
           moreCommentsButton.classList.remove('hidden');
           moreCommentsButton.addEventListener('click', renderComments);
