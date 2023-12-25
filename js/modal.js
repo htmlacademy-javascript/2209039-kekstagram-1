@@ -1,5 +1,7 @@
 import { isEscapeKey } from './util.js';
 
+const COMMENTS_COUNT = 5;
+
 const renderModal = (thumbnailPictures, data) => {
   const bigPicture = document.querySelector('.big-picture');
   const closeModalButton = bigPicture.querySelector('.big-picture__cancel');
@@ -7,12 +9,20 @@ const renderModal = (thumbnailPictures, data) => {
   const commentsList = document.querySelector('.social__comments');
   const moreCommentsButton = bigPicture.querySelector('.comments-loader');
   let commentsShown = 0;
+  let onMoreCommentsClick;
+
+  const closeModalWindow = () => {
+    bigPicture.classList.add('hidden');
+    document.removeEventListener('keydown', onModalKeydown);
+    commentsShown = 0;
+    moreCommentsButton.removeEventListener('click', renderComments);
+  };
+
 
   const onModalKeydown = (evt) => {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
-      bigPicture.classList.add('hidden');
-      commentsShown = 0;
+      closeModalWindow();
     }
   };
 
@@ -22,11 +32,8 @@ const renderModal = (thumbnailPictures, data) => {
     document.addEventListener('keydown', onModalKeydown);
   };
 
-  const closeModalWindow = () => {
-    bigPicture.classList.add('hidden');
-    document.removeEventListener('keydown', onModalKeydown);
-    moreCommentsButton.removeEventListener('click', renderComments);
-    commentsShown = 0;
+  const onCloseModalClick = () => {
+    closeModalWindow();
   };
 
   const renderModalContent = (postData) => {
@@ -41,8 +48,7 @@ const renderModal = (thumbnailPictures, data) => {
   const renderComments = (postData) => {
     const commentsCounter = document.querySelector('.social__comment-count');
     commentsList.innerHTML = '';
-    commentsShown += 5;
-    const renderMore = () => renderComments;
+    commentsShown += COMMENTS_COUNT;
 
     if (postData.comments.length < commentsShown) {
       commentsShown = postData.comments.length;
@@ -61,7 +67,6 @@ const renderModal = (thumbnailPictures, data) => {
         moreCommentsButton.classList.add('hidden');
       } else {
         moreCommentsButton.classList.remove('hidden');
-        moreCommentsButton.addEventListener('click', renderMore);
       }
     }
   };
@@ -74,10 +79,15 @@ const renderModal = (thumbnailPictures, data) => {
       renderModalContent(currentPostData);
       renderComments(currentPostData);
       openModalWindow();
+
+      onMoreCommentsClick = () => {
+        renderComments(currentPostData);
+      };
+      moreCommentsButton.addEventListener('click', onMoreCommentsClick);
     });
   }
 
-  closeModalButton.addEventListener('click', closeModalWindow);
+  closeModalButton.addEventListener('click', onCloseModalClick);
 };
 
 export {renderModal};
