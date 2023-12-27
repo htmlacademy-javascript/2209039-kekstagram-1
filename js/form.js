@@ -1,6 +1,6 @@
 import { isEscapeKey } from './util.js';
-import { scalePicture } from './scale.js';
-import { resetEffects } from './effects.js';
+// import { scalePicture } from './scale.js';
+// import { resetEffects } from './effects.js';
 
 
 const form = document.querySelector('.img-upload__form');
@@ -54,11 +54,11 @@ const validateForm = () => {
     document.querySelector('body').classList.add('.modal-open');
     pictureEditor.classList.remove('hidden');
     document.addEventListener('keydown', onModalKeydown);
-    scalePicture();
+    // scalePicture();
   };
 
   const closeModalWindow = () => {
-    resetEffects();
+    // resetEffects();
     form.reset();
     pictureEditor.classList.add('hidden');
     document.removeEventListener('keydown', onModalKeydown);
