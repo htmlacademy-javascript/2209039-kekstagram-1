@@ -16,15 +16,16 @@ const renderModal = (thumbnailPictures, data) => {
     document.removeEventListener('keydown', onModalKeydown);
     commentsShown = 0;
     moreCommentsButton.removeEventListener('click', renderComments);
+    moreCommentsButton.removeEventListener('click', onMoreCommentsClick);
   };
 
 
-  const onModalKeydown = (evt) => {
+  function onModalKeydown (evt) {
     if (isEscapeKey(evt)) {
       evt.preventDefault();
       closeModalWindow();
     }
-  };
+  }
 
   const openModalWindow = () => {
     document.querySelector('body').classList.add('.modal-open');
@@ -45,7 +46,7 @@ const renderModal = (thumbnailPictures, data) => {
     commentsHTML.forEach((commentHTML) => commentHTML.parentNode.removeChild(commentHTML));
   };
 
-  const renderComments = (postData) => {
+  function renderComments (postData) {
     const commentsCounter = document.querySelector('.social__comment-count');
     commentsList.innerHTML = '';
     commentsShown += COMMENTS_COUNT;
@@ -69,7 +70,7 @@ const renderModal = (thumbnailPictures, data) => {
         moreCommentsButton.classList.remove('hidden');
       }
     }
-  };
+  }
 
   for (let i = 0; i < thumbnailPictures.length; i++) {
     const currentPicture = thumbnailPictures[i];
