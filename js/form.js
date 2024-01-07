@@ -13,7 +13,7 @@ const tagsSymbols = /^#[a-zа-яё0-9]{1,19}$/i;
 const hashtagErrorText = 'Ошибка! Неверно заполнены хэштеги :(';
 
 const validateForm = () => {
-  const prisitne = new Pristine (form, {
+  const pristine = new Pristine (form, {
     classTo: 'img-upload__field-wrapper',
     errorTextParent: 'img-upload__field-wrapper',
     errorTextClass: 'img-upload__error-text'
@@ -33,7 +33,7 @@ const validateForm = () => {
     return checkValidCount(tags) && checkUniqueTags(tags) && tags.every(isValidTag);
   };
 
-  prisitne.addValidator(
+  pristine.addValidator(
     hashtagField,
     checkTags,
     hashtagErrorText
@@ -46,7 +46,7 @@ const validateForm = () => {
   const onModalKeydown = (evt) => {
     if (isEscapeKey(evt) && !focusedOnTextfield()) {
       evt.preventDefault();
-      pictureEditor.classList.add('hidden');
+      closeModalWindow();
     }
   };
 
@@ -54,15 +54,17 @@ const validateForm = () => {
     document.querySelector('body').classList.add('.modal-open');
     pictureEditor.classList.remove('hidden');
     document.addEventListener('keydown', onModalKeydown);
+    pristine.reset();
+    commentsField.value = '';
     // scalePicture();
   };
 
-  const closeModalWindow = () => {
+  function closeModalWindow () {
     // resetEffects();
     form.reset();
     pictureEditor.classList.add('hidden');
     document.removeEventListener('keydown', onModalKeydown);
-  };
+  }
 
   closeModalButton.addEventListener('click', closeModalWindow);
   fileUploader.addEventListener('change', openModalWindow);
