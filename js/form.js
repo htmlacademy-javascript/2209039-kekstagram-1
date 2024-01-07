@@ -1,5 +1,5 @@
 import { isEscapeKey } from './util.js';
-// import { scalePicture } from './scale.js';
+import { scalePicture, removeScaleListeners } from './scale.js';
 // import { resetEffects } from './effects.js';
 
 
@@ -56,7 +56,7 @@ const validateForm = () => {
     document.addEventListener('keydown', onModalKeydown);
     pristine.reset();
     commentsField.value = '';
-    // scalePicture();
+    scalePicture();
   };
 
   function closeModalWindow () {
@@ -64,6 +64,7 @@ const validateForm = () => {
     form.reset();
     pictureEditor.classList.add('hidden');
     document.removeEventListener('keydown', onModalKeydown);
+    removeScaleListeners();
   }
 
   closeModalButton.addEventListener('click', closeModalWindow);
