@@ -40,7 +40,11 @@ const createComment = () => ({
 });
 
 const getCommentsArray = () => {
+<<<<<<< HEAD
   const commentsQuantity = getRandomInteger(1, 15);
+=======
+  const commentsQuantity = getRandomInteger(1, 20);
+>>>>>>> 82b9bf202e936d886ee888130d98d7c710eb1aaf
   return Array.from({length: commentsQuantity}, createComment);
 };
 
