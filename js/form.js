@@ -1,6 +1,6 @@
 import { isEscapeKey } from './util.js';
 import { scalePicture, removeScaleListeners } from './scale.js';
-// import { resetEffects } from './effects.js';
+import { resetEffects } from './effects.js';
 
 
 const form = document.querySelector('.img-upload__form');
@@ -60,7 +60,7 @@ const validateForm = () => {
   };
 
   function closeModalWindow () {
-    // resetEffects();
+    resetEffects();
     form.reset();
     pictureEditor.classList.add('hidden');
     document.removeEventListener('keydown', onModalKeydown);
