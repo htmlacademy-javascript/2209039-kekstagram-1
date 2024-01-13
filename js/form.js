@@ -13,7 +13,7 @@ const hashtagField = document.querySelector('.text__hashtags');
 const commentsField = document.querySelector('.text__description');
 const tagsSymbols = /^#[a-zа-яё0-9]{1,19}$/i;
 const hashtagErrorText = 'Ошибка! Неверно заполнены хэштеги :(';
-const submitButton = form.querySelector('img-upload__submit');
+const submitButton = form.querySelector('.img-upload__submit');
 
 const SubmitButtonText = {
   IDLE: 'Опубликовать',

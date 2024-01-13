@@ -1,30 +1,28 @@
 
 import { isEscapeKey } from './util.js';
 
+let modalWindow;
 
-const closeWindow = (section) => section.classList.add('hidden');
-
-const onModalKeydown = (evt, section) => {
+const onModalKeydown = (evt) => {
   if (isEscapeKey(evt)) {
     evt.preventDefault();
-    closeWindow(section);
-    document.removeEventListener('keydown', onModalKeydown);
+    closeWindow();
   }
 };
 
-const onButtonClose = (section, closeButton) => {
-  closeWindow(section);
-  closeButton.removeEventListener('click', onButtonClose);
-};
+function closeWindow () {
+  // обработчик onModalKeydown вешается на документ и не знает про section и closeButton
+  modalWindow.classList.add('hidden');
+  // closeButton.removeEventListener('click', closeWindow);
+  document.removeEventListener('keydown', onModalKeydown);
+}
 
 const showErrorWindow = () => {
   const errorTemplate = document.querySelector('#error').content;
 
   document.body.append(errorTemplate);
-  const errorSection = document.querySelector('.error');
-  const closeButton = document.querySelector('.error__button');
-  onButtonClose(errorSection, closeButton);
-  closeButton.addEventListener('click', onButtonClose);
+  modalWindow = document.querySelector('.error');
+  // const closeButton = document.querySelector('.error__button');
   document.addEventListener('keydown', onModalKeydown);
 };
 
@@ -33,10 +31,9 @@ const showSuccessWindow = () => {
 
   document.body.append(successTemplate);
 
-  const successSection = document.querySelector('.success');
-  const closeButton = document.querySelector('.success__button');
-  closeButton.addEventListener('click', onButtonClose(successSection, closeButton));
-  document.addEventListener('keydown', onModalKeydown(closeButton));
+  modalWindow = document.querySelector('.success');
+  // closeButton.addEventListener('click', closeWindow);
+  document.addEventListener('keydown', onModalKeydown);
 };
 
 export { showSuccessWindow, showErrorWindow };
