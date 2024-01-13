@@ -1,4 +1,4 @@
-import { renderThumbnails } from './thumbnails.js';
+import { renderThumbnails, sortRandom } from './thumbnails.js';
 // import { getPostsArray } from './data.js';
 import { renderModal } from './modal.js';
 import { validateForm, setUserFormSubmit } from './form.js';
@@ -18,7 +18,8 @@ setUserFormSubmit(async (data) => {
 
 try {
   const data = await getData();
-  const thumbnailPictures = renderThumbnails(data);
+  const order = sortRandom(data);
+  const thumbnailPictures = renderThumbnails(order);
   renderModal(thumbnailPictures, data);
   showFitlters();
 } catch (err) {

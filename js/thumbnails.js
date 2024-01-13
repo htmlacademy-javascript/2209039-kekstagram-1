@@ -1,5 +1,3 @@
-import { getRandomInteger } from './util.js';
-
 const pictureContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 const defaultOrderButton = document.querySelector('#filter-default');
@@ -14,11 +12,13 @@ const classSwitcher = (target) => {
 };
 
 const sortRandom = (photos) => {
+  debugger
   classSwitcher(randomOrderButton);
-  return photos.sort(() => Math.random - 0.5);
+  const newOrder = photos.slice().sort(() => Math.random - 0.5);
+  return newOrder;
 };
 
-const renderThumbnails = (data) => {
+function renderThumbnails (data) {
   const differentThumbnailsFragment = document.createDocumentFragment();
 
   data.forEach((postData) => {
@@ -38,5 +38,6 @@ const renderThumbnails = (data) => {
   randomOrderButton.addEventListener('click', () => sortRandom(thumbnailPictures));
 
   return thumbnailPictures;
-};
-export { renderThumbnails };
+}
+
+export { renderThumbnails, sortRandom };
