@@ -15,8 +15,7 @@ const classSwitcher = (target) => {
 
 const sortRandom = (photos) => {
   classSwitcher(randomOrderButton);
-  const photosArray = Array.from(photos);
-  return photosArray.sort(() => Math.random - 0.5);
+  return photos.sort(() => Math.random - 0.5);
 };
 
 const renderThumbnails = (data) => {
