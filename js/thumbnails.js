@@ -1,5 +1,3 @@
-import { sortRandom } from './sort.js';
-
 const pictureContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
@@ -24,4 +22,4 @@ function renderThumbnails (data) {
   return thumbnailPictures;
 }
 
-export { renderThumbnails, sortRandom };
+export { renderThumbnails };

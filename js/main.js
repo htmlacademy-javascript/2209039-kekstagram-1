@@ -5,7 +5,7 @@ import { validateForm, setUserFormSubmit } from './form.js';
 import { getData, sendData } from './api.js';
 import { showAlert } from './util.js';
 import { showSuccessWindow, showErrorWindow } from './messages.js';
-import { showFitlters, sortPhotos } from './sort.js';
+import { sortPhotos } from './sort.js';
 
 setUserFormSubmit(async (data) => {
   try {
@@ -18,10 +18,9 @@ setUserFormSubmit(async (data) => {
 
 try {
   const data = await getData();
-  const order = sortPhotos(data, renderThumbnails);
-  const thumbnailPictures = renderThumbnails(order);
+  sortPhotos(data, renderThumbnails);
+  const thumbnailPictures = renderThumbnails(data);
   renderModal(thumbnailPictures, data);
-  showFitlters();
 } catch (err) {
   showAlert(err.message);
 }

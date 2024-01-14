@@ -22,9 +22,9 @@ const sortPhotos = (photos, cb) => {
   function sortRandom () {
     classSwitcher(randomOrderButton);
     const newOrder = photos.slice().sort(() => Math.random() - 0.5);
-    removeEventListeners(photos);
-    defaultOrderButton.addEventListener('click', sortDefault(photos));
-    popularOrderButton.addEventListener('click', sortPopular(photos));
+    removeEventListeners();
+    defaultOrderButton.addEventListener('click', sortDefault);
+    popularOrderButton.addEventListener('click', sortPopular);
     cb(newOrder);
     return cb;
   }
@@ -33,8 +33,8 @@ const sortPhotos = (photos, cb) => {
     classSwitcher(popularOrderButton);
     const newOrder = photos.slice().sort((a, b) => b.comments.length - a.comments.length);
     removeEventListeners(photos);
-    defaultOrderButton.addEventListener('click', sortDefault(photos));
-    randomOrderButton.addEventListener('click', sortRandom(photos));
+    defaultOrderButton.addEventListener('click', sortDefault);
+    randomOrderButton.addEventListener('click', sortRandom);
     cb(newOrder);
     return cb;
   }
