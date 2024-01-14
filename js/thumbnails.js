@@ -1,22 +1,7 @@
+import { sortRandom } from './sort.js';
+
 const pictureContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
-const defaultOrderButton = document.querySelector('#filter-default');
-const randomOrderButton = document.querySelector('#filter-random');
-const popularOrderButton = document.querySelector('#filter-discussed');
-
-const classSwitcher = (target) => {
-  const previousButton = document.querySelector('.img-filters__button--active');
-  previousButton.classList.remove('img-filters__button--active');
-
-  target.classList.add('img-filters__button--active');
-};
-
-const sortRandom = (photos) => {
-  debugger
-  classSwitcher(randomOrderButton);
-  const newOrder = photos.slice().sort(() => Math.random - 0.5);
-  return newOrder;
-};
 
 function renderThumbnails (data) {
   const differentThumbnailsFragment = document.createDocumentFragment();
@@ -35,7 +20,6 @@ function renderThumbnails (data) {
   pictureContainer.appendChild(differentThumbnailsFragment);
 
   const thumbnailPictures = document.querySelectorAll('.picture');
-  randomOrderButton.addEventListener('click', () => sortRandom(thumbnailPictures));
 
   return thumbnailPictures;
 }

@@ -1,11 +1,11 @@
-import { renderThumbnails, sortRandom } from './thumbnails.js';
+import { renderThumbnails } from './thumbnails.js';
 // import { getPostsArray } from './data.js';
 import { renderModal } from './modal.js';
 import { validateForm, setUserFormSubmit } from './form.js';
 import { getData, sendData } from './api.js';
 import { showAlert } from './util.js';
 import { showSuccessWindow, showErrorWindow } from './messages.js';
-import { showFitlters } from './sort.js';
+import { showFitlters, sortPhotos } from './sort.js';
 
 setUserFormSubmit(async (data) => {
   try {
@@ -18,7 +18,7 @@ setUserFormSubmit(async (data) => {
 
 try {
   const data = await getData();
-  const order = sortRandom(data);
+  const order = sortPhotos(data, renderThumbnails);
   const thumbnailPictures = renderThumbnails(order);
   renderModal(thumbnailPictures, data);
   showFitlters();
