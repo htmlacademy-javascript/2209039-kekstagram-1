@@ -1,9 +1,6 @@
 import { isEscapeKey } from './util.js';
 import { scalePicture, removeScaleListeners } from './scale.js';
 import { resetEffects } from './effects.js';
-// import { showAlert } from './util.js';
-// import { sendData } from './api.js';
-
 
 const form = document.querySelector('.img-upload__form');
 const fileUploader = document.querySelector('.img-upload__input');

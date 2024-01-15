@@ -1,5 +1,4 @@
 import { renderThumbnails } from './thumbnails.js';
-// import { getPostsArray } from './data.js';
 import { validateForm, setUserFormSubmit } from './form.js';
 import { getData, sendData } from './api.js';
 import { showAlert, debounce } from './util.js';
@@ -25,9 +24,5 @@ try {
 } catch (err) {
   showAlert(err.message);
 }
-// const data = getPostsArray();
 
-
-// const thumbnailPictures = renderThumbnails(data);
-// renderModal(thumbnailPictures, data);
 validateForm();
