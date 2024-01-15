@@ -2,7 +2,9 @@ import { isEscapeKey } from './util.js';
 
 const COMMENTS_COUNT = 5;
 
-const renderModal = (thumbnailPictures, data) => {
+const renderModal = (data) => {
+  const thumbnailPictures = document.querySelectorAll('.picture');
+
   const bigPicture = document.querySelector('.big-picture');
   const closeModalButton = bigPicture.querySelector('.big-picture__cancel');
   const commentTemplate = document.querySelector('#comment').content;

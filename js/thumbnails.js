@@ -1,7 +1,9 @@
+import { renderModal } from './modal.js';
+
 const pictureContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
-const renderThumbnails = (data) => {
+function renderThumbnails (data) {
   const differentThumbnailsFragment = document.createDocumentFragment();
 
   data.forEach((postData) => {
@@ -16,8 +18,7 @@ const renderThumbnails = (data) => {
   });
 
   pictureContainer.appendChild(differentThumbnailsFragment);
+  renderModal(data);
+}
 
-  const thumbnailPictures = document.querySelectorAll('.picture');
-  return thumbnailPictures;
-};
 export { renderThumbnails };
