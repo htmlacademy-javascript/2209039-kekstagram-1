@@ -9,46 +9,37 @@ const classSwitcher = (target) => {
   target.classList.add('img-filters__button--active');
 };
 
-const sortPhotos = (photos, cb) => {
+const removePhotos = () => {
+  Array.from(document.querySelectorAll('.picture')).forEach((item) => item.remove());
+};
+
+const activateSortButtons = (photos, cb) => {
   document.querySelector('.img-filters').
     classList.remove('img-filters--inactive');
 
-  function removeEventListeners() {
-    defaultOrderButton.removeEventListener('click', sortDefault);
-    randomOrderButton.removeEventListener('click', sortRandom);
-    popularOrderButton.removeEventListener('click', sortPopular);
-  }
-
   function sortRandom () {
+    removePhotos();
     classSwitcher(randomOrderButton);
     const newOrder = photos.slice().sort(() => Math.random() - 0.5);
-    removeEventListeners();
-    defaultOrderButton.addEventListener('click', sortDefault);
-    popularOrderButton.addEventListener('click', sortPopular);
     cb(newOrder);
-    return cb;
   }
 
   function sortPopular () {
+    removePhotos();
     classSwitcher(popularOrderButton);
     const newOrder = photos.slice().sort((a, b) => b.comments.length - a.comments.length);
-    removeEventListeners(photos);
-    defaultOrderButton.addEventListener('click', sortDefault);
-    randomOrderButton.addEventListener('click', sortRandom);
     cb(newOrder);
-    return cb;
   }
 
   function sortDefault () {
+    removePhotos();
     classSwitcher(defaultOrderButton);
     const newOrder = photos.slice().sort((a, b) => a.id - b.id);
-    removeEventListeners(photos);
-    popularOrderButton.addEventListener('click', sortPopular);
-    randomOrderButton.addEventListener('click', sortRandom);
     cb(newOrder);
-    return cb;
   }
-  sortDefault();
+  defaultOrderButton.addEventListener('click', sortDefault);
+  randomOrderButton.addEventListener('click', sortRandom);
+  popularOrderButton.addEventListener('click', sortPopular);
 };
 
-export { sortPhotos };
+export { activateSortButtons };

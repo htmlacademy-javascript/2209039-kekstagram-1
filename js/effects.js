@@ -51,7 +51,7 @@ const PHOTO_EFFECTS = [
 
 const sliderContainer = document.querySelector('.img-upload__effect-level');
 const sliderElement = document.querySelector('.effect-level__slider');
-const imagePreview = document.querySelector('.img-upload__preview');
+const imagePreview = document.querySelector('.img-upload__preview img');
 const effects = document.querySelector('.effects');
 const effectsLevel = document.querySelector('.effect-level__value');
 const noEffect = PHOTO_EFFECTS[0];
@@ -102,7 +102,7 @@ const onEffectsChange = (evt) => {
     return false;
   }
   currentEffect = PHOTO_EFFECTS.find((filter) => filter.name === evt.target.value);
-  imagePreview.classList = `img-upload__preview effects__preview--${currentEffect.name}`;
+  imagePreview.classList = `effects__preview--${currentEffect.name}`;
   updateSlider();
 };
 

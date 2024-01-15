@@ -11,9 +11,7 @@ const onModalKeydown = (evt) => {
 };
 
 function closeWindow () {
-  // обработчик onModalKeydown вешается на документ и не знает про section и closeButton
-  modalWindow.classList.add('hidden');
-  // closeButton.removeEventListener('click', closeWindow);
+  modalWindow.remove();
   document.removeEventListener('keydown', onModalKeydown);
 }
 
@@ -22,7 +20,8 @@ const showErrorWindow = () => {
 
   document.body.append(errorTemplate);
   modalWindow = document.querySelector('.error');
-  // const closeButton = document.querySelector('.error__button');
+  const closeButton = document.querySelector('.error__button');
+  closeButton.addEventListener('click', () => closeWindow());
   document.addEventListener('keydown', onModalKeydown);
 };
 
@@ -32,7 +31,8 @@ const showSuccessWindow = () => {
   document.body.append(successTemplate);
 
   modalWindow = document.querySelector('.success');
-  // closeButton.addEventListener('click', closeWindow);
+  const closeButton = document.querySelector('.success__button');
+  closeButton.addEventListener('click', () => closeWindow());
   document.addEventListener('keydown', onModalKeydown);
 };
 

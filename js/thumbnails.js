@@ -1,3 +1,5 @@
+import { renderModal } from './modal.js';
+
 const pictureContainer = document.querySelector('.pictures');
 const pictureTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
@@ -16,10 +18,7 @@ function renderThumbnails (data) {
   });
 
   pictureContainer.appendChild(differentThumbnailsFragment);
-
-  const thumbnailPictures = document.querySelectorAll('.picture');
-
-  return thumbnailPictures;
+  renderModal(data);
 }
 
 export { renderThumbnails };

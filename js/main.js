@@ -1,11 +1,13 @@
 import { renderThumbnails } from './thumbnails.js';
 // import { getPostsArray } from './data.js';
-import { renderModal } from './modal.js';
 import { validateForm, setUserFormSubmit } from './form.js';
 import { getData, sendData } from './api.js';
-import { showAlert } from './util.js';
+import { showAlert, debounce } from './util.js';
 import { showSuccessWindow, showErrorWindow } from './messages.js';
-import { sortPhotos } from './sort.js';
+import { activateSortButtons } from './sort.js';
+import './avatar.js';
+
+const TIMEOUT_DELAY = 500;
 
 setUserFormSubmit(async (data) => {
   try {
@@ -18,9 +20,8 @@ setUserFormSubmit(async (data) => {
 
 try {
   const data = await getData();
-  sortPhotos(data, renderThumbnails);
-  const thumbnailPictures = renderThumbnails(data);
-  renderModal(thumbnailPictures, data);
+  renderThumbnails(data);
+  activateSortButtons(data, debounce (renderThumbnails, TIMEOUT_DELAY));
 } catch (err) {
   showAlert(err.message);
 }

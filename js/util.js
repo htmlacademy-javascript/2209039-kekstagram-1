@@ -38,4 +38,13 @@ const showAlert = (message) => {
   }, 5000);
 };
 
-export { getRandomInteger, getId, isEscapeKey, showAlert };
+function debounce (callback, timeoutDelay) {
+  let timeoutId;
+
+  return (...rest) => {
+    clearTimeout(timeoutId);
+    timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
+  };
+}
+
+export { getRandomInteger, getId, isEscapeKey, showAlert, debounce };
