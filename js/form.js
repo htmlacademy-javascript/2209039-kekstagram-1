@@ -31,11 +31,11 @@ const focusedOnTextfield = () =>
 const onModalKeydown = (evt) => {
   if (isEscapeKey(evt) && !focusedOnTextfield()) {
     evt.preventDefault();
-    closeModalWindow();
+    onCloseModalButton();
   }
 };
 
-const openModalWindow = () => {
+const onFileUploader = () => {
   document.querySelector('body').classList.add('.modal-open');
   pictureEditor.classList.remove('hidden');
   document.addEventListener('keydown', onModalKeydown);
@@ -44,7 +44,7 @@ const openModalWindow = () => {
   scalePicture();
 };
 
-function closeModalWindow() {
+function onCloseModalButton() {
   resetEffects();
   form.reset();
   pictureEditor.classList.add('hidden');
@@ -73,8 +73,8 @@ const validateForm = () => {
     hashtagErrorText
   );
 
-  closeModalButton.addEventListener('click', closeModalWindow);
-  fileUploader.addEventListener('change', openModalWindow);
+  closeModalButton.addEventListener('click', onCloseModalButton);
+  fileUploader.addEventListener('change', onFileUploader);
 };
 
 const blockSubmitButton = () => {
@@ -96,7 +96,7 @@ const setUserFormSubmit = (callBack) => {
       blockSubmitButton();
       await callBack(new FormData(evt.target));
       unblockSubmitButton();
-      closeModalWindow();
+      onCloseModalButton();
     }
   });
 };
